@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>A-One Science Park | Step‑by‑Step Science Learning</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #FFFFFF;
+      color: #1A3A2E;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+
+    /* minimal green/white theme */
+    :root {
+      --green-deep: #2B6E4F;
+      --green-soft: #40916C;
+      --green-light: #E9F5EE;
+      --gray-light: #F7F9F8;
+    }
+
+    /* navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #DFECE5;
+      padding: 0.9rem 2rem;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2B6E4F;
+    }
+    .logo i {
+      color: #40916C;
+      margin-right: 6px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2C5A47;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #2B6E4F; }
+
+    /* fullscreen hero carousel */
+    .hero-carousel {
+      position: relative;
+      height: 85vh;
+      min-height: 500px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .hero-slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-slide.active { opacity: 1; z-index: 2; }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 55, 45, 0.5);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 1.5rem;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+    .hero-btn {
+      background: #2B6E4F;
+      color: white;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .hero-btn:hover { background: #1F5A40; transform: translateY(-2px); }
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 60px;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 20;
+    }
+    .hero-arrow:hover { background: #2B6E4F; }
+    .hero-prev { left: 20px; }
+    .hero-next { right: 20px; }
+    .hero-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 20;
+    }
+    .hero-dot {
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,240,0.7);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .hero-dot.active {
+      background: white;
+      width: 26px;
+    }
+
+    /* main container */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* step by step sections */
+    .step-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 4rem;
+      border-bottom: 1px solid #E2EFE8;
+      padding-bottom: 2rem;
+    }
+    .step-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .step-image {
+      flex: 1;
+      min-width: 240px;
+    }
+    .step-image img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+      object-fit: cover;
+      height: 260px;
+      background: #F3F8F5;
+    }
+    .step-text {
+      flex: 1;
+    }
+    .step-number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2B6E4F;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .step-text h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1F4D3C;
+      margin-bottom: 0.5rem;
+    }
+    .step-text p {
+      margin: 0.8rem 0;
+      color: #2B4F3E;
+    }
+    .gadget-meta {
+      display: inline-block;
+      background: #E9F5EE;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+    .dimension {
+      background: #F4FBF7;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      display: inline-block;
+    }
+   
+    /* FOOTER WITH FULL-WIDTH BACKGROUND IMAGE */
+    .footer {
+      position: relative;
+      background: linear-gradient(rgba(20, 45, 35, 0.88), rgba(20, 45, 35, 0.92)), 
+                  url('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center 40%;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      color: #F1F9F4;
+      padding: 3rem 1.5rem 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      width: 100%;
+      border-top: 1px solid rgba(255,245,200,0.25);
+    }
+    .footer-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .footer a {
+      color: #DCF5E8;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: 0.2s;
+    }
+    .footer a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+    .footer p {
+      margin: 0.6rem 0;
+    }
+    .footer .social-icons {
+      margin: 1rem 0;
+    }
+    .footer .social-icons a {
+      font-size: 1.4rem;
+      margin: 0 0.6rem;
+    }
+
+    @media (max-width: 750px) {
+      .hero-content h1 { font-size: 2rem; }
+      .step-text h3 { font-size: 1.5rem; }
+      .step-item { flex-direction: column; }
+      .step-image { order: 1; }
+      .step-text { order: 2; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo"><i class="fas fa-leaf"></i> A-One Science Park</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#Product">Product</a></li>
+      <li><a href="#About">About</a></li>
+      <li><a href="#Contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- FULLSCREEN HERO CAROUSEL -->
+<section id="home" class="hero-carousel">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background-image: url('https://www.re-thinkingthefuture.com/wp-content/uploads/2026/01/A14713-Science-Park-Nerul-Navi-Mumbai-Image-1.jpg?w=999');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Play‑Way <span style="color:#CEEADB;">Science Learning</span></h1>
+        <p>Open‑air gadgets • Hands‑on exhibits • Where curiosity meets fun</p>
+        <a href="#step1" class="hero-btn"><i class="fas fa-flask"></i> Discover the Park</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image: url('https://airial.travel/_next/image?url=https%3A%2F%2Fcoinventmediastorage.blob.core.windows.net%2Fmedia-storage-container%2Fgphoto_ChIJ-R-hcq6cXjkRl5GhwHE69WE_0.jpg&w=2048&q=75');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Learn <span style="color:#CEEADB;">While Playing</span></h1>
+        <p>Mechanics • Sound • Light • Biology • Meteorology — all in one campus</p>
+        <a href="#gadgets" class="hero-btn"><i class="fas fa-microchip"></i> Explore Gadgets</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/03/Science_City_Kolkata_4643.JPG');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Centre of Gravity • <span style="color:#CEEADB;">Mass & Inertia</span></h1>
+        <p>100+ interactive models that make science unforgettable</p>
+        <a href="#hours" class="hero-btn"><i class="far fa-clock"></i> Plan your visit</a>
+      </div>
+    </div>
+  </div>
+  <button class="hero-arrow hero-prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow hero-next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+  <div class="hero-dots" id="heroDots"></div>
+</section>
+
+<main class="container">
+  <!-- STEP 1: What is a Science Park? -->
+  <div id="step1" class="step-item">
+    <div class="step-image">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgkc1Oze4DjFQDifbbEZP_KDh8_yndpzpi9w&s" alt="Children playing with science gadgets outdoors">
+    </div>
+    <div class="step-text">
+      <div class="step-number">STEP 01 — PLAY-WAY PHILOSOPHY</div>
+      <h3>What is a Science Park?</h3>
+      <p><strong>A-One Science Park</strong> is a cluster of open‑air science gadgets designed for <strong>play‑way learning of Science</strong>. It’s an innovative concept that turns education into an informal, engaging experience. Children naturally love to play — this park turns that instinct into scientific discovery. Educationists, scientists, and psychiatrists endorse play‑way methods, and our science park covers mechanics, sound, light, heat, chemistry, biology, meteorology & applied sciences.</p>
+      <p>✔ Inculcates scientific temper among children and adults.<br>✔ Ideal for school campuses & public parks.<br>✔ 300+ hands‑on exhibits.</p>
+    </div>
+  </div>
+
+  <!-- STEP 2: Why Play-Way? -->
+  <div class="step-item">
+    <div class="step-text">
+      <div class="step-number">STEP 02 — INFORMAL SCIENCE EDUCATION</div>
+      <h3>DOUBLE ENDED CONE</h3>
+      <p>World‑renowned educationists strive to develop tools for active learning. A‑One Science Park’s gadgets are designed so that children mingle with science naturally. From mechanics to meteorology, every exhibit sparks curiosity, enhances critical thinking, and builds a strong foundation. The park’s design aligns with NCERT / CBSE curiosity‑based learning, turning abstract concepts into tangible experiences.</p>
+      <div class="gadget-meta"><i class="fas fa-chart-line"></i> 75% better retention through hands‑on play</div>
+    </div>
+    <div class="step-image">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzyxGR33-XoX-j0AA1_y1yIYKgjO9Sh3_T6A&s" alt="Students interacting with outdoor science model">
+    </div>
+  </div>
+
+  <!-- STEP 3: Double Ended Cone -->
+  <div id="gadgets" class="step-item">
+    <div class="step-image">
+      <img src="https://cpimg.tistatic.com/1927716/b/6/scientific-park-equipments-park-gear-belt-chain-drive.jpg" alt="Double ended cone demonstration">
+    </div>
+    <div class="step-text">
+      <div class="step-number">STEP 03 — FASCINATING GADGET</div>
+      <h3> MASS & INERTIA </h3>
+      <p><strong>Product Description:</strong> The equilibrium of any object is governed by the position of its centre of gravity. This fascinating model explains it with fun. Watch the cone seemingly roll upward — a classic demonstration of gravity and balance.</p>
+      <div class="gadget-meta"><i class="fas fa-graduation-cap"></i> Recommended Class: VII, VIII, IX</div>
+      <div><span class="dimension"><i class="fas fa-ruler"></i> Dimensions (l×b×h): 10" × 3" × 3"</span></div>
+      <p style="margin-top: 0.6rem;">★ Visitors love to see the illusion of the cone moving against gravity — perfect for understanding centre of mass.</p>
+    </div>
+  </div>
+
+  <!-- STEP 4: Mass & Inertia -->
+  <div class="step-item">
+    <div class="step-text">
+      <div class="step-number">STEP 04 — RELATION BETWEEN MASS & INERTIA</div>
+      <h3>FRICTION & SPEED</h3>
+      <p><strong>Product Description:</strong> With three rotating discs of iron, aluminum, and acrylic, this exhibit beautifully illustrates the relationship between mass and inertia. Spin them to feel how heavier objects resist change in motion.</p>
+      <div class="gadget-meta"><i class="fas fa-graduation-cap"></i> Recommended Class: VII, VIII, IX, X</div>
+      <div><span class="dimension"><i class="fas fa-ruler"></i> Dimensions (l×b×h): 4" × 2" × 5.5"</span></div>
+      <p>✔ Safe play area — durable materials for outdoor use.<br>✔ Direct observation of Newton’s first law in action.</p>
+    </div>
+    <div class="step-image">
+      <img src="https://cpimg.tistatic.com/7661941/b/4/multi-play-station-system.jpg" alt="Rotating discs showing mass and inertia">
+    </div>
+  </div>
+
+  <!-- STEP 5: Beyond Mechanics -->
+  <div class="step-item">
+    <div class="step-image">
+      <img src="https://cpimg.tistatic.com/04552420/b/4/Science-Park-Models-Know-Your-Weight.jpg" alt="Sound and wave science model">
+    </div>
+    <div class="step-text">
+      <div class="step-number">STEP 05 — BEYOND MECHANICS</div>
+      <h3> CONSERVATION OF ENERGY
+</h3>
+      <p>Our science park goes beyond physics: explore acoustics with resonance tubes, optical illusion mirrors, weather station with anemometer, and models demonstrating plant transpiration. Every branch of science comes alive in the open air.</p>
+      <div class="gadget-meta"><i class="fas fa-seedling"></i> Green innovation zone & solar study models</div>
+      <div class="gadget-meta"><i class="fas fa-cloud-sun"></i> Daily weather charting station</div>
+    </div>
+  </div>
+
+  
+
+  <div style="background: #E9F5EE; padding: 0.8rem; border-radius: 60px; text-align: center; margin: 1rem 0 2rem;">
+    <i class="fas fa-shuttle-van"></i> Located near Central District · STEM workshops every Saturday · Contact for group booking
+  </div>
+</main>
+
+<!-- FOOTER WITH FULL-WIDTH NATURE BACKGROUND IMAGE (high quality) -->
+<footer class="footer" id="contact">
+  <div class="footer-container">
+    <p><i class="fas fa-leaf"></i> A-One Science Park — Inspiring scientific temper through play‑way learning since 2012.</p>
+    <p style="margin: 0.7rem 0;">
+      <i class="fas fa-map-marker-alt"></i> Green Knowledge Campus, Central District &nbsp;|&nbsp; 
+      <i class="fas fa-phone-alt"></i> +91 98765 43210 &nbsp;|&nbsp;
+      <i class="fas fa-envelope"></i> info@aonesciencepark.com
+    </p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.8rem;">&copy; 2026 A-One Science Park — Play‑Way Learning for Future Innovators</p>
+  </div>
+</footer>
+
+<script>
+  // Hero carousel
+  (function() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const prev = document.getElementById('heroPrev');
+    const next = document.getElementById('heroNext');
+    const dotsContainer = document.getElementById('heroDots');
+    let current = 0;
+    let autoTimer;
+    let hover = false;
+    const total = slides.length;
+
+    function update() {
+      slides.forEach((s, i) => {
+        if (i === current) s.classList.add('active');
+        else s.classList.remove('active');
+      });
+      const dots = document.querySelectorAll('.hero-dot');
+      dots.forEach((d, i) => {
+        if (i === current) d.classList.add('active');
+        else d.classList.remove('active');
+      });
+    }
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      for (let i=0; i<total; i++) {
+        let dot = document.createElement('div');
+        dot.classList.add('hero-dot');
+        if (i === current) dot.classList.add('active');
+        dot.addEventListener('click', () => { current = i; update(); resetAuto(); });
+        dotsContainer.appendChild(dot);
+      }
+    }
+    function nextSlide() { current = (current+1)%total; update(); }
+    function prevSlide() { current = (current-1+total)%total; update(); }
+    function startAuto() { if(autoTimer) clearInterval(autoTimer); autoTimer = setInterval(() => { if(!hover) nextSlide(); }, 6000); }
+    function resetAuto() { if(autoTimer) { clearInterval(autoTimer); startAuto(); } }
+    function stopAuto() { if(autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+    if(prev) prev.addEventListener('click', () => { prevSlide(); resetAuto(); });
+    if(next) next.addEventListener('click', () => { nextSlide(); resetAuto(); });
+    const heroArea = document.querySelector('.hero-carousel');
+    if(heroArea) {
+      heroArea.addEventListener('mouseenter', () => { hover=true; stopAuto(); });
+      heroArea.addEventListener('mouseleave', () => { hover=false; startAuto(); });
+    }
+    createDots();
+    update();
+    startAuto();
+  })();
+</script>
+</body>
+</html>
