@@ -140,6 +140,10 @@ font-weight: 700;
     color: var(--green-deep);
     font-size: 4.2rem;
 }
+.section-common-heading2{
+  color: var(--gray-light);
+    font-size: 4.2rem;
+}
 
 .section-common-subheading {
     color: var(--green-deep);
@@ -147,6 +151,29 @@ font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
     font-weight: 700;
+
+    
+}
+
+.section-common-subheading2 {
+    color: var(--gray-light);
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-align: center;
+}
+.product-section2{
+      /*background-color: var(--green-deep);
+      */background: #22f522;
+      background: linear-gradient(43deg, rgba(34, 245, 34, 1) 0%, rgba(72, 174, 140, 1) 33%, rgba(87, 199, 133, 1) 50%, rgba(68, 173, 96, 1) 55%, rgba(97, 181, 94, 1) 63%, rgba(115, 186, 93, 1) 68%, rgba(237, 221, 83, 1) 100%);
+      margin-top: 10rem;
+      text-align: center;
+      border-radius:5% ;
+      -webkit-border-radius:5% ;
+      -moz-border-radius:5% ;
+      -ms-border-radius:5% ;
+      -o-border-radius:5% ;
 }
 
 /* Product Grid */
@@ -208,6 +235,58 @@ font-weight: 700;
     font-weight: 700;
     white-space: pre-wrap;
 }
+
+
+/* **** hero section start *** */
+.grid {
+  display: grid;
+  gap: 6rem;
+}
+.grid-two--cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+.section-hero--image img {
+  width: 100%;
+  height: auto;
+  border-radius: 2%;
+  -webkit-border-radius: 2%;
+  -moz-border-radius: 2%;
+  -ms-border-radius: 2%;
+  -o-border-radius: 2%;
+}
+
+.section-hero .grid{
+    align-items: center;
+    gap:6.4rem ;
+    
+
+      & .hero-subheading {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 2rem;
+    word-spacing: 0.2rem;
+    color: var(--green-deep);
+    font-weight: 700;
+  }
+
+    & .hero-heading {
+    font-size: 4.5rem;
+    line-height: 1.5;
+    font-family: "Jost", Arial, Helvetica, sans-serif
+    color:var(--green-deep);
+    font-weight: 900;
+    text-align: center;
+    
+  }
+
+  & .hero-para {
+    color: var(--green-deep);
+    margin: 2rem 0 4.2rem 0;
+  }
+}
+
+
+/* **** hero section start *** */
 
 /* Tablet */
 
