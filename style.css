@@ -186,18 +186,35 @@ font-weight: 700;
 /* Product Grid */
 
 .product-grid {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 4rem;
     row-gap: 6rem;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 2rem; */
 }
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 3rem;
+    /* margin: 0 auto; */
+    padding: 4rem;
+
+}
+/* .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+} */
+
 
 /* Product Card */
 
-.product-card {
+/* .product-card {
     width: 100%;
     max-width: 300px;
     background-color: var(--gray-light);
@@ -210,7 +227,21 @@ font-weight: 700;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+} */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* height: 26rem; */
+    background-color: var(--gray-light);
+    color: var(--green-deep);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    overflow: hidden;
 }
+
+
+
 
 .product-card:hover {
     transform: scale(1.05);
@@ -224,27 +255,39 @@ font-weight: 700;
 
 .product-grid img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
+    height: 150px;
+    /* object-fit: cover;
+    display: block; */
 }
 
 /* Product Description */
 
-.product-description {
-    padding: 1rem;
+.product-discription {
+    padding: 15px;
+     font-size: 0.85rem;
+    font-weight: 500;
+    /* line-height: 1.6; */
+    text-align: left;
 }
 
-.product-description pre {
-    font-size: 0.85rem;
-    font-weight: 700;
-    white-space: pre-wrap;
+.product-description,h3{
+  text-transform: capitalize;
+  /* text-transform: lowercase; */
+   font-size: 0.9rem;
+      font-weight: 900;
+      margin-bottom: 0.3rem;
 }
 
-.text-dimension{
-    font-size: 0.85rem;
+
+.product-info {
+    font-size: 0.75rem;
     font-weight: 700;
-    white-space: pre-wrap;
+    
+  
+/* text-align: left; */
+    white-space: normal;
+    /* word-wrap: break-word; */
+    line-height: 1.5;
 }
 
 
